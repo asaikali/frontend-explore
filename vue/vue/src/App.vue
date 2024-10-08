@@ -3,7 +3,8 @@
 import Simple from  './components/Text.vue'
 import Greeting from './components/Greeting.vue'
 import RedBox from './components/RedBox.vue'
-import Counter from './components/counter.vue';
+import Counter from './components/Counter.vue';
+import Greeter from './components/Signup.vue';
 </script>
 
 <template>
@@ -23,9 +24,16 @@ import Counter from './components/counter.vue';
   <hr />
   <Counter />
 
+
+  <hr />
+  <Greeter />
   
   <!-- <HelloWorld msg="Vite + Vue" /> -->
 </template>
 
-<style scoped>
+<style>
+
+.adib {
+  text-align: center;
+}
 </style>

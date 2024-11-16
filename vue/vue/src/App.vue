@@ -5,6 +5,7 @@ import Greeting from './components/Greeting.vue'
 import RedBox from './components/RedBox.vue'
 import Counter from './components/Counter.vue';
 import Greeter from './components/Signup.vue';
+import Camera from './components/Camera.vue';
 </script>
 
 <template>
@@ -28,6 +29,8 @@ import Greeter from './components/Signup.vue';
   <hr />
   <Greeter />
   
+  <hr />
+  <Camera />
   <!-- <HelloWorld msg="Vite + Vue" /> -->
 </template>
 

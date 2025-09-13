@@ -3,6 +3,10 @@
 This project builds on the **vanilla-ts + Vite** setup but adds **Vue 3**.  
 The main differences are how **Vue Single File Components (SFCs)** are handled and how **TypeScript integrates more deeply**.
 
+This project was created with the command `npm create vite@latest vue-basic` which means that the vite project scaffolder was
+used to make the project.  The `npm create vue@latest my-project` uses the vue scaffolder which ask more questions that are 
+vuejs specifc.
+
 ---
 
 ## 🆕 New Concepts vs. Vanilla TS
@@ -142,4 +146,43 @@ export default defineConfig({
 - **Dev:** `vite` → fast server + HMR; esbuild transpiles TS (no type checks).
 - **Type-check:** `vue-tsc -b` → checks `.ts` **and** `.vue` templates.
 - **Build:** `vite build` → bundles/optimizes for production.
-```
+
+
+## 🏗️ Project Scaffolding: Vite vs Vue Creators
+
+There are two common ways to scaffold a Vue project, and they produce slightly different setups:
+
+### `npm create vite@latest`
+- **Owner:** Vite team.
+- **Scope:** Any framework (Vue, React, Svelte, Vanilla, etc.).
+- **What you get:**
+    - Minimal Vite setup with the chosen framework’s plugin (here: `@vitejs/plugin-vue`).
+    - No router, no state management, no testing, no linting by default.
+- **Goal:** Keep it lightweight. You add extra tools as you need them.
+
+### `npm create vue@latest`
+- **Owner:** Vue core team.
+- **Scope:** Vue only.
+- **What you get:**
+    - Vue app with prompts to include ecosystem features:
+        - TypeScript
+        - JSX support
+        - Vue Router
+        - Pinia (state management)
+        - Testing (Vitest, Cypress)
+        - ESLint + Prettier
+    - Generates a project already wired with your chosen extras.
+- **Goal:** Provide a Vue-first, opinionated starter.
+
+---
+
+### ✅ Summary
+
+| Command                   | Owner    | Scope         | Typical Output |
+|----------------------------|----------|--------------|----------------|
+| `npm create vite@latest`   | Vite     | Multi-framework | Minimal Vite setup + Vue plugin |
+| `npm create vue@latest`    | Vue team | Vue only     | Vue app with optional ecosystem features |
+
+👉 Since this project was scaffolded with **`create-vite`**, it is a **minimal Vue setup**.  
+If you had used **`create-vue`**, you would have seen interactive prompts to add **router, pinia, testing, and linting** at the start.
+

@@ -30,6 +30,30 @@ Just like the backend world has compilers, frameworks, dependency managers, and 
 6. **Plugins / Extensions**  
    - Add support for frameworks (Vue, React), preprocessors (Sass, Markdown), or optimizations (PWA, Tailwind).  
 
+    
+```plain
+
+Package Manager (npm, yarn, pnpm)
+        │
+        ▼
+Project Scaffolding (create-vite)
+        │
+        ▼
+   Dev Server (HMR)
+        │
+        ▼
+Transpilers (TS, JSX)
+        │
+        ▼
+Bundler / Optimizer (Rollup/Rolldown)
+        │
+        ▼
+ Production Build
+        ▲
+        │
+   Plugins (Vue, React, Tailwind, PWA)
+```
+
 ---
 
 ## ⚡ Where Vite Fits
@@ -100,28 +124,6 @@ Think of plugins like **middleware** in backend frameworks — they extend the p
 Vite is the **orchestrator** of the modern frontend toolchain. It scaffolds projects, runs a dev server, bundles code for production, and extends through plugins.
 
 
-```plain
-
-Package Manager (npm, yarn, pnpm)
-        │
-        ▼
-Project Scaffolding (create-vite)
-        │
-        ▼
-   Dev Server (HMR)
-        │
-        ▼
-Transpilers (TS, JSX)
-        │
-        ▼
-Bundler / Optimizer (Rollup/Rolldown)
-        │
-        ▼
- Production Build
-        ▲
-        │
-   Plugins (Vue, React, Tailwind, PWA)
-```
 ## 🔥 Hot Module Replacement (HMR)
 
 HMR = **Hot Module Replacement**. It lets you update parts of your app while it’s running **without doing a full page reload**.

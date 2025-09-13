@@ -289,3 +289,34 @@ These commands are **core to Vite** and work the same way no matter what framewo
 - Svelte, Solid, Lit, and others
 
 👉 Plugins add framework support, but the `dev`, `build`, and `preview` workflow stays identical.
+
+## 📄 Who Uses `tsconfig.json`
+
+`tsconfig.json` is a **TypeScript config file**.  
+It belongs to the TypeScript ecosystem, not Vite itself — but multiple tools consume it:
+
+1. **TypeScript Compiler (`tsc`)**
+    - Reads `tsconfig.json` when you run `tsc`.
+    - Enforces type checking during build (`tsc && vite build`).
+
+2. **IDE / TypeScript Language Server**
+    - Uses the same config for autocomplete, intellisense, and inline type errors as you code.
+
+3. **Vite (indirectly, via esbuild + plugins)**
+    - Uses some settings (`moduleResolution: "bundler"`, `target`, `lib`) to stay aligned with how TypeScript resolves modules.
+    - But Vite itself doesn’t enforce types — it relies on `tsc` and the IDE for that.
+
+```text
+             ┌──────────────┐
+             │ tsconfig.json│
+             └──────┬───────┘
+                    │
+     ┌──────────────┼──────────────┐
+     ▼              ▼              ▼
+ TypeScript      IDE / TS        Vite (esbuild)
+ Compiler (tsc)  Language        + plugins
+                 Server
+     │              │              │
+ Type checks   Inline errors   Fast TS->JS
+ in build      + autocomplete  transpile (no type checks)
+```

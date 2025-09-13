@@ -82,3 +82,64 @@ This split keeps concerns clear:
 - Vite needs **a plugin** to understand `.vue` files.
 - TypeScript checking extends into **templates** with `vue-tsc`.
 - Configs are often split into multiple `tsconfig.*.json` files.  
+
+## 🧩 Why multiple `tsconfig` files (and what each is for)
+
+Vue projects split TypeScript config by **runtime** so the right libs/types are used in the right places:
+
+- **Root `tsconfig.json` (project references)**
+  - Acts as a **map**, not a real config.
+  - Points to the two sub-configs:
+    - `tsconfig.app.json` → browser app code
+    - `tsconfig.node.json` → node/tooling code
+  - Lets IDEs and `vue-tsc` load both “sub-projects” cleanly.
+
+- **`tsconfig.app.json` (browser / Vue app)**
+  - Extends Vue’s DOM preset (`@vue/tsconfig/tsconfig.dom.json`) so you get **DOM types** and Vue-friendly defaults.
+  - **Includes**: `src/**/*.ts`, `src/**/*.tsx`, `src/**/*.vue` (so both scripts **and templates** are type-checked).
+  - Works with **`vue-tsc`** to type-check template expressions (props, emits, v-for/v-if bindings), which plain `tsc` can’t see.
+
+- **`tsconfig.node.json` (Node / tooling)**
+  - Targets **Node-side files** such as `vite.config.ts`.
+  - Uses modern ES targets and “bundler” resolution so TypeScript resolves modules like Vite/Rollup do.
+  - **No DOM libs** (because this code runs in Node, not the browser).
+  - `noEmit: true`: only type-check — Vite/esbuild handles transpiling.
+
+**Why the split?**  
+Browser code and Node tooling have **different environments** (DOM vs Node). Splitting configs avoids type conflicts, keeps each context strict and clean, and speeds up incremental checks.
+
+```
+Root tsconfig.json
+├─ tsconfig.app.json   (browser: DOM + Vue + .vue files)
+└─ tsconfig.node.json  (node: tooling like vite.config.ts)
+```
+
+---
+
+## ⚙️ The new `vite.config.ts` (what’s new vs vanilla-ts)
+
+```ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [vue()],
+})
+```
+
+- **What it is:** Vite’s project configuration file (TypeScript-flavored).
+- **Why it’s new here:** Vue uses **Single File Components** (`.vue`). Vite doesn’t understand `.vue` by default — you must add the **Vue plugin**.
+- **`@vitejs/plugin-vue`:**
+    - Compiles `<template>` into render functions.
+    - Supports `<script setup>` and scoped CSS.
+    - Wires **fast HMR** for component updates.
+- **Relation to `tsconfig.node.json`:**
+    - Since `vite.config.ts` runs in **Node**, it’s type-checked under the **Node** config (no DOM, bundler-style resolution).
+    - Keeps Node typings separate from your browser app typings.
+
+**Build flow reminder (Vue + TS):**
+- **Dev:** `vite` → fast server + HMR; esbuild transpiles TS (no type checks).
+- **Type-check:** `vue-tsc -b` → checks `.ts` **and** `.vue` templates.
+- **Build:** `vite build` → bundles/optimizes for production.
+```

@@ -6,6 +6,7 @@ import RedBox from './components/RedBox.vue'
 import Counter from './components/Counter.vue';
 import Greeter from './components/Signup.vue';
 import Camera from './components/Camera.vue';
+import ChatInput from './components/ChatInput.vue';
 </script>
 
 <template>
@@ -32,6 +33,8 @@ import Camera from './components/Camera.vue';
   <hr />
   <Camera />
   <!-- <HelloWorld msg="Vite + Vue" /> -->
+
+  <ChatInput />
 </template>
 
 <style>

@@ -254,3 +254,41 @@ sequenceDiagram
     Runtime->>Runtime: Run accept() (apply new code)
     Runtime-->>User: UI updates instantly without page reload
 ```
+
+## 🚀 Dev, Build, and Preview
+
+Vite provides three key commands for different stages of the workflow:
+
+### `npm run dev`
+- Starts the **development server**.
+- Features:
+    - On-demand compilation (ESM served directly).
+    - **HMR (Hot Module Replacement)** for instant feedback.
+- Use this while coding.
+
+### `npm run build`
+- Runs the **production bundler**.
+- Features:
+    - Optimized, minified output.
+    - Code-splitting, tree-shaking, asset hashing.
+- Produces the `dist/` folder (ready for deployment).
+
+### `npm run preview`
+- Serves the `dist/` folder using a local static server.
+- Features:
+    - No HMR, no transformations.
+    - Lets you test the exact production output before deploying.
+- **Requires `npm run build` first** (otherwise `dist/` will be missing or stale).
+
+### 📌 Note: Framework-Agnostic
+
+These commands are **core to Vite** and work the same way no matter what framework you use:
+- Vanilla JS/TS
+- Vue (`@vitejs/plugin-vue`)
+- React (`@vitejs/plugin-react`)
+- Svelte, Solid, Lit, and others
+
+👉 Plugins add framework support, but the `dev`, `build`, and `preview` workflow stays identical.
+```
+
+Do you want me to also add a **small diagram** (`dev → build → preview → deploy`) here, so you can see the lifecycle flow at a glance?

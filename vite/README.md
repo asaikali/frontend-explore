@@ -289,6 +289,3 @@ These commands are **core to Vite** and work the same way no matter what framewo
 - Svelte, Solid, Lit, and others
 
 👉 Plugins add framework support, but the `dev`, `build`, and `preview` workflow stays identical.
-```
-
-Do you want me to also add a **small diagram** (`dev → build → preview → deploy`) here, so you can see the lifecycle flow at a glance?

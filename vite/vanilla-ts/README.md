@@ -61,16 +61,6 @@ Vite provides three key commands for the project workflow:
 👉 During development, type errors show up in the **IDE**, but **only the build step enforces them**.
 
 
-```mermaid
-flowchart TD
-    A[IDE / TS Language Server] -->|Type errors shown inline| Dev[Dev Server (vite)]
-    Dev -->|Transpile via esbuild<br/>no type checks| Browser[Browser + HMR]
-    Dev -->|On save| B[Build]
-    B[Build (tsc && vite build)] -->|Type checked + bundled| Dist[dist/]
-    Dist --> Preview[Preview Server (vite preview)]
-    Preview --> User[Test production build locally]
-```
-
 ```text
 IDE / TS Language Server (type errors as you type)
         │
@@ -89,3 +79,17 @@ dist/ (production output)
 
 npm run preview (serves dist/ locally for testing)
 ```
+
+## 🆚 Vanilla JS vs Vanilla TS
+
+| Aspect              | Vanilla JS project                    | Vanilla TS project                             |
+|---------------------|---------------------------------------|-----------------------------------------------|
+| `npm run dev`       | `vite` → serves JS with HMR           | `vite` → transpiles TS with esbuild (no type checks) |
+| `npm run build`     | `vite build` → bundles for prod       | `tsc && vite build` → type-check + bundle      |
+| `npm run preview`   | `vite preview` → serve dist/          | `vite preview` → serve dist/                   |
+| Type errors in dev  | N/A (no types)                        | Shown in IDE only (not enforced by dev server) |
+| Type errors in build| N/A                                   | Enforced by `tsc` before bundling              |
+
+👉 The **only real difference**:
+- **Vanilla JS** relies purely on Vite.
+- **Vanilla TS** adds **TypeScript type-checking at build time** (`tsc && vite build`).
